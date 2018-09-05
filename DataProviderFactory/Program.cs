@@ -41,14 +41,14 @@ namespace DataProviderFactory
 
                 WriteLine($"Twoim obiektem połączenia jest {command.GetType().Name}");
                 command.Connection = connection;
-                command.CommandText = "Select * from Inventory";
+                command.CommandText = "Select Customers.FirstName, Customers.LastName, Inventory.PetName From Customers Join Orders On Orders.CustId = Customers.CustId Join Inventory On Orders.CarId = Inventory.CarId where Inventory.PetName = 'Punto'";
 
                 using (DbDataReader dataReader = command.ExecuteReader())
                 {
                     WriteLine($"Twój obiekt odczytujący to : {dataReader.GetType().Name}");
-                    WriteLine("\n**** Wyświetlam wyniki zapytania sql ****");
+                    WriteLine("\n**** Fiatem Punto Interesują się osoby ****");
                     while (dataReader.Read())
-                        WriteLine($" Id samochodu {dataReader["CarId"]} jest typu {dataReader["Make"]}");
+                        WriteLine($" {dataReader["FirstName"]} | {dataReader["LastName"]} interesują się : {dataReader["PetName"]}");
                 }
 
                 ReadLine();
